@@ -1,11 +1,16 @@
 const express = require('express')
+const mongoose = require('mongoose')
+require('dotenv').config()
+
+const PORT = process.env.PORT || 3000
 const app = express()
-const port = 3000
 
-app.get('/', (req, res)=>{
-    res.send('Hola mundo')
-})
+//routes
+app.get('/', (req, res)=>{res.send('Hola mundo') })
 
-app.listen(port,()=>{
-    console.log('Puerto 3000')
-})
+//mongodb connetion
+mongoose.connect(process.env.MONGODB_URI)
+ .then(()=>{console.log('Conectado a mongodb Atlas')})
+ .catch((err)=>{console.log(err)})
+
+app.listen(PORT,()=>{console.log('Servidor en Puerto: http://localhost:3000/')})
